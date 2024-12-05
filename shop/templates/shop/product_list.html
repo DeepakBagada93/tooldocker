@@ -1,0 +1,28 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+<h1 class="text-center">Our Products</h1>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            {% else %}
+            <img src="https://via.placeholder.com/300" class="card-img-top" alt="{{ product.name }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                <p class="card-text"><strong>₹{{ product.price }}</strong></p>
+                {% if product.slug %}
+                <a href="{% url 'product_detail' product.slug %}" class="btn btn-primary">View Details</a>
+                {% else %}
+                <p class="text-danger">Details unavailable</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
